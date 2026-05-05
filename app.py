@@ -42,14 +42,14 @@ html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
 
 /* ── Search bar ── */
 .stTextInput > div > div > input {
-    border-radius: 12px !important; border: 2px solid #e2e8f0 !important;
+    border-radius: 12px !important; border: 2px solid #e5a037 !important;
     font-size: 1.05rem !important; padding: 0.75rem 1.1rem !important;
-    background: #fafafa !important;
+    color: inherit !important;
 }
 .stTextInput > div > div > input:focus {
     border-color: #e5a037 !important;
-    box-shadow: 0 0 0 4px rgba(229,160,55,0.12) !important;
-    background: #fff !important;
+    box-shadow: 0 0 0 4px rgba(229,160,55,0.18) !important;
+    outline: none !important;
 }
 
 /* ── Property card ── */
