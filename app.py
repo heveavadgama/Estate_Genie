@@ -120,9 +120,19 @@ html, body, [class*="css"] { font-family: 'DM Sans', sans-serif; }
 }
 
 /* ── Sidebar tweaks ── */
-section[data-testid="stSidebar"] { background: #fafbfc; }
-.sidebar-header { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: #94a3b8; margin: 0.8rem 0 0.4rem; }
+.sidebar-header {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; color: #e5a037; margin: 1rem 0 0.3rem;
+}
+/* Make sidebar widget labels visible in both light and dark mode */
+section[data-testid="stSidebar"] label {
+    font-weight: 500 !important;
+}
+section[data-testid="stSidebar"] .stSlider label,
+section[data-testid="stSidebar"] .stSelectbox label,
+section[data-testid="stSidebar"] .stCheckbox label {
+    font-size: 0.88rem !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
@@ -165,12 +175,6 @@ def get_engine_and_stats():
         return eng, eng.get_stats()
 
     # ── Upload screen ─────────────────────────────────────────────────────────
-    st.markdown("""
-<div class="eg-hero">
-  <h1>🏠 Estate Genie</h1>
-  <p>AI-powered UK rental search — upload your dataset to begin.</p>
-</div>""", unsafe_allow_html=True)
-
     st.info("**No dataset found in the repo.** Upload your `properties.csv` below — "
             "it's cached for your session so you only do this once.")
 
@@ -205,6 +209,13 @@ def get_openai_client():
         pass
     return None
 
+
+# ── Always render hero first (before any st.stop() in upload flow) ───────────
+st.markdown("""
+<div class="eg-hero">
+  <h1>🏠 Estate Genie</h1>
+  <p>Search UK rental listings in plain English — powered by AI.</p>
+</div>""", unsafe_allow_html=True)
 
 engine, stats = get_engine_and_stats()
 openai_client = get_openai_client()
@@ -280,12 +291,6 @@ with st.sidebar:
 
 
 # ── Main UI ───────────────────────────────────────────────────────────────────
-st.markdown(f"""
-<div class="eg-hero">
-  <h1>🏠 Estate Genie</h1>
-  <p>Search {stats['total']:,} UK rental listings in plain English — powered by AI.</p>
-</div>""", unsafe_allow_html=True)
-
 # Stat pills
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("Total Listings",  f"{stats['total']:,}")
